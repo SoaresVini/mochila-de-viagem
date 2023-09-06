@@ -1,8 +1,5 @@
 # alura-armazenando-na-web
 
-Local Storage - O Local Storage nada mais é do que um espaço
-para você armazenar as suas informações dentro do navegador do usuário
-
 localStorage guarda informações de forma persistente no navegador, sendo em média 5MB de armazenamento padrão, podendo variar dependendo do navegador utilizado. 
 Este limite pode ser aumentado pelo usuário quando necessário, no entanto apenas alguns navegadores suportam isso. Os dados salvos são apenas do tipo string texto.
 
