@@ -1,9 +1,21 @@
 const form = document.querySelector('#novoItem');
 const  listItems = document.querySelector('#lista');
-const  itens = JSON.parse(localStorage.getItem('Itens')) || []
-
+const  itens = JSON.parse(localStorage.getItem('Itens')) || [];
+const  apagarLista = document.querySelector(".apagar");
+const  tagTitulo = document.querySelector(".title");
+const inputTitle = document.querySelector('#titulo')
+const buttonTitulo = document.querySelector('.AddTitulo')
 itens.forEach((element) => {
     criarElemento(element)
+})
+
+const  title = localStorage.getItem('Titulo');
+criarTitulo(title);
+inputTitle.value = title;
+
+buttonTitulo.addEventListener("click", () => {
+    localStorage.setItem("Titulo", inputTitle.value)
+    criarTitulo(inputTitle.value)
 })
 
 form.addEventListener("submit", (event) => {
@@ -22,15 +34,24 @@ form.addEventListener("submit", (event) => {
 
     if(exiteItem){
         item.id = exiteItem.id;
-        atualizarElemento(item)
+        atualizarElemento(item);
+        itens[itens.findIndex(elemento => elemento.id === exiteItem.id)] = item;
+
     }else {
-        item.id = itens.length;
+        item.id = itens[itens.length-1] ? itens[itens.length-1].id + 1 : 0;
         criarElemento(item)
         itens.push(item);
     }
 
     localStorage.setItem("Itens", JSON.stringify(itens));
     limpaInput([inputName, inputAmount]);
+})
+
+function criarTitulo(itemTitulo) {
+    tagTitulo.innerHTML = itemTitulo
+}
+apagarLista.addEventListener("click", () => {
+    deleteList()
 })
 
 function criarElemento(item){
@@ -44,6 +65,7 @@ function criarElemento(item){
     novoItem.appendChild(numeroItem);
 
     novoItem.innerHTML += item.name;
+    novoItem.appendChild(Botaodeletar(item.id))
 
     listItems.appendChild(novoItem)
 
@@ -58,4 +80,30 @@ function limpaInput(inputs = []) {
     inputs.forEach( (input) => {
         input.value = '';
     })
+}
+
+function deletarElemento(elemento, id) {
+    elemento.remove();
+    itens.splice(itens.findIndex(elemento => elemento.id === id),1 )
+    localStorage.setItem("Itens", JSON.stringify(itens));
+}
+
+function Botaodeletar(id) {
+    const elementoBotao = document.createElement("button")
+    elementoBotao.innerHTML = 'X';
+
+    elementoBotao.addEventListener("click", function () {
+        deletarElemento(this.parentNode, id);
+    })
+
+    return elementoBotao;
+}
+
+function deleteList() {
+    itens.splice(0, itens.length)
+    localStorage.removeItem("Titulo");
+    localStorage.removeItem("Itens");
+    location.reload();
+
+
 }

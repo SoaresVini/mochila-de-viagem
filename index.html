@@ -17,16 +17,22 @@
         <div class="principal">
             <div class="mochila"></div>
             <form action="" class="adicionar" id="novoItem">
+                <label for="item">Titulo</label>
+                <input required type="text" name="titulo" id="titulo">
+                <input type="button" value="Add Titulo" class="AddTitulo cadastrar">
                 <label for="item">Nome</label>
-                <input type="text" name="nome" id="nome">
+                <input required type="text" name="nome" id="nome">
                 <label for="item">Quantidade</label>
-                <input type="number" name="quantidade" id="quantidade">
+                <input required type="number" name="quantidade" id="quantidade">
                 <input type="submit" value="Adicionar" class="cadastrar">
+                <input type="button" value="APAGAR LISTA" class="apagar">
             </form>
         </div>
-        
-        <ul class="lista" id="lista">
-        </ul>
+        <div>
+            <h1 class="title">Teste</h1>
+            <ul class="lista" id="lista">
+            </ul>
+        </div>
     </main>
     <script src="js/main.js"></script>
 </body>
